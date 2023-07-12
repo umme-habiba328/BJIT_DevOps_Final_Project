@@ -53,7 +53,7 @@ spec:
     spec:
       containers:
       - name: spring
-        image: ummehabiba23/library:latest
+        image: ummehabiba23/lms:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
