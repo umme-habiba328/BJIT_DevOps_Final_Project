@@ -53,7 +53,7 @@ spec:
     spec:
       containers:
       - name: spring
-        image: ummehabiba23/devops-automation:latest
+        image: ummehabiba23/automation-devops:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
