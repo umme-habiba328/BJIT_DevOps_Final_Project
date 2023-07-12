@@ -1,3 +1,11 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mysql-secret
+type: Opaque
+data:
+  mysql-root-password: MTIzNDU2Cg==
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -17,8 +25,10 @@ spec:
           image: mysql:latest
           env:
             - name: MYSQL_ROOT_PASSWORD
-              value: "123456"
-            
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: mysql-root-password
             - name: MYSQL_DATABASE
               value: sparklmsdb
           ports:
@@ -107,3 +117,4 @@ spec:
     targetPort: 8080
     nodePort: 30090
   type: NodePort
+
