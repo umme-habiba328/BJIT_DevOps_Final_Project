@@ -1,0 +1,30 @@
+---
+- name: Run kubeadm init
+  command: sudo kubeadm init --pod-network-cidr=10.10.0.0/16 --apiserver-advertise-address=192.168.100.197 --cri-socket=unix:///run/containerd/containerd.sock
+   
+- name: Create kube directory in root's home directory
+  shell: |
+    mkdir -p $HOME/.kube
+    cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+    chown $(id -u):$(id -g) $HOME/.kube/config
+    export KUBECONFIG=/etc/kubernetes/admin.conf
+
+- name: Create pod's network in master node
+  shell: |
+    kubectl apply -f "https://raw.githubusercontent.com/projectcalico/calico/master/manifests/calico.yaml"
+  become: true
+
+- name: Joining worker node to cluster # Generating token to join worker nodes
+  shell:
+    cmd: |
+      kubeadm token create --print-join-command
+  register: join_token
+  become: true
+
+- debug: msg="{{ join_token.stdout }}"
+
+- name: Copy join command to local file
+  local_action: copy content="{{ join_token.stdout_lines[0] }}" dest="/tmp/join_token" mode=0777
+  become: true
+
+
