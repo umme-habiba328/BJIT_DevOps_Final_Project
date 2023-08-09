@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: spring
-        image: ummehabiba23/sparklms:latest
+        image: ummehabiba23/lmsspark:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
