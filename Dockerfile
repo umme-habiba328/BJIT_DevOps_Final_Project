@@ -1,4 +1,4 @@
-FROM openjdk:11
+FROM openjdk:18
 WORKDIR /app
 COPY ../target/*.jar spark-lms-0.0.1-SNAPSHOT.jar
 EXPOSE 8080
