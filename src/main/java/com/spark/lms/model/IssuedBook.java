@@ -2,16 +2,7 @@ package com.spark.lms.model;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -31,13 +22,13 @@ public class IssuedBook implements Serializable {
 	private Long id;
 	
 	@JsonIgnore
-	@OneToOne(fetch = FetchType.EAGER)
+	@OneToOne(fetch = FetchType.EAGER, optional = false)
 	@JoinColumn(name = "book_id")
 	@NotNull
 	private Book book;
 	
 	@JsonIgnore
-	@ManyToOne
+	@ManyToOne(optional = false)
 	@JoinColumn(name = "issue_id")
 	@NotNull
 	private Issue issue;
