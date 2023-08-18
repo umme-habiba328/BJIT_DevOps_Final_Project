@@ -17,18 +17,18 @@ public class IssuedBook implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Long id;
 	
 	@JsonIgnore
-	@OneToOne(fetch = FetchType.EAGER, optional = false)
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "book_id")
 	@NotNull
 	private Book book;
 	
 	@JsonIgnore
-	@ManyToOne(optional = false)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "issue_id")
 	@NotNull
 	private Issue issue;
